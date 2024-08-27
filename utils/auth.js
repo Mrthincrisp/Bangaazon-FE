@@ -2,11 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { clientCredentials } from './client';
 
-const endpoint = 'https://localhost:7194';
-
 const checkUser = (uid) => new Promise((resolve, reject) => {
   console.warn(clientCredentials.databaseURL);
-  fetch(`${endpoint}/checkUser/${uid}`, {
+  fetch(`${clientCredentials.databaseURL}/checkUser/${uid}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

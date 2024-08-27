@@ -14,19 +14,16 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Link passHref href="/">
-          <Navbar.Brand>CHANGE ME</Navbar.Brand>
+          <Navbar.Brand>no, you&apos;re perfect as you are</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link>Browse</Nav.Link>
             </Link>
             <Link passHref href="/cart">
               <Nav.Link>cart</Nav.Link>
-            </Link>
-            <Link passHref href="/browse">
-              <Nav.Link>browse</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out
