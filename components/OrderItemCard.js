@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function OrderItemCard({ orderItemObj }) {
+export default function OrderItemCard({ orderItemObj, deleteOrderItem }) {
   return (
     <>
       <div>
-        <p>{orderItemObj.product.name}</p>
+        <p>{orderItemObj.product.name} </p>
+        <button
+          type="button"
+          onClick={() => deleteOrderItem(orderItemObj.orderItemId)}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', color: 'red',
+          }}
+        >
+          &times;
+        </button>
+        <p>{orderItemObj.product.price}</p>
+
       </div>
     </>
   );
@@ -14,9 +25,10 @@ export default function OrderItemCard({ orderItemObj }) {
 OrderItemCard.propTypes = {
   orderItemObj: PropTypes.shape({
     product: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      // Define other properties if needed
+      name: PropTypes.string,
+      price: PropTypes.number,
     }).isRequired,
-    // Define other properties if needed
+    orderItemId: PropTypes.number,
   }).isRequired,
+  deleteOrderItem: PropTypes.func.isRequired,
 };

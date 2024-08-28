@@ -1,8 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
+import { useAuth } from '../utils/context/authContext';
+import { addOrderItem, getUserOrderItems } from '../API/OrderCalls';
 
-export default function ProductCard({ productObj }) {
+export default function ProductCard({ productObj, setOrderItem }) {
+  const { user } = useAuth();
+
+  const addToCart = () => {
+    const payload = {
+      userId: user.id,
+      productId: productObj.productId,
+    };
+    addOrderItem(payload).then(() => {
+      getUserOrderItems(user.id).then(setOrderItem);
+    });
+  };
+
   return (
     <>
       <Card style={{ width: '18rem' }}>
@@ -11,7 +25,7 @@ export default function ProductCard({ productObj }) {
           <Card.Img src={productObj.ImageUrl} />
           <Card.Text>{productObj.description}</Card.Text>
           <Card.Link>Details</Card.Link>
-          <Button>Add to Cart</Button>
+          <Button onClick={addToCart}>Add to Cart</Button>
         </Card.Body>
       </Card>
     </>
@@ -23,5 +37,7 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     ImageUrl: PropTypes.string,
     description: PropTypes.string,
+    productId: PropTypes.number,
   }).isRequired,
+  setOrderItem: PropTypes.func.isRequired,
 };
