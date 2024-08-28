@@ -2,23 +2,34 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../API/ProductCalls';
 import Cart from '../components/Cart';
+import { getUserOrderItems } from '../API/OrderCalls';
+import { useAuth } from '../utils/context/authContext';
 
 export default function Browse() {
+  const { user } = useAuth();
   const [products, setProducts] = useState([]);
+  const [orderItem, setOrderItem] = useState([]);
 
   useEffect(() => {
-    console.warn(getProducts);
     getProducts().then(setProducts);
   }, []);
+
+  useEffect(() => {
+    getUserOrderItems(user.id).then(setOrderItem);
+  }, [user.id]);
 
   return (
     <div>
       <div className="product-list">
         {products.map((product) => (
-          <ProductCard key={product.productId} productObj={product} />
+          <ProductCard
+            key={product.productId}
+            productObj={product}
+            setOrderItem={setOrderItem}
+          />
         ))}
       </div>
-      <Cart />
+      <Cart orderItems={orderItem} setOrderItem={setOrderItem} />
     </div>
   );
 }
