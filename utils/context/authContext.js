@@ -7,7 +7,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { checkUser } from '../auth';
+import { checkUser, registerUser } from '../auth';
 import { firebase } from '../client';
 
 const AuthContext = createContext();
@@ -75,4 +75,23 @@ const useAuth = () => {
   return context;
 };
 
-export { AuthProvider, useAuth, AuthConsumer };
+const registerWithEmailAndPassword = (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    // User successfully registered
+    const fbUser = userCredential.user;
+
+    // Optionally, create a user record in your database
+    return registerUser({
+      uid: fbUser.uid,
+      email: fbUser.email,
+      // Additional user info
+    });
+  })
+  .catch((error) => {
+    console.error('Error during registration:', error.message);
+    throw error;
+  });
+
+export {
+  AuthProvider, useAuth, AuthConsumer, registerWithEmailAndPassword,
+};

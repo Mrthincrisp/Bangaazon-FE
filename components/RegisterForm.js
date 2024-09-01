@@ -2,12 +2,17 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { registerUser } from '../utils/auth';
 
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
-    bio: '',
+    Id: '',
     uid: user.uid,
+    userName: '',
+    email: '',
+    seller: false,
+    storeName: '',
+    storeDescription: '',
   });
 
   const handleSubmit = (e) => {
@@ -15,17 +20,46 @@ function RegisterForm({ user, updateUser }) {
     registerUser(formData).then(() => updateUser(user.uid));
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <div>
+      <Form onSubmit={handleSubmit}>
+        <br /><br />
+        <h1>{user ? 'Update' : 'Create'} User Profile</h1>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            name="userName"
+            value={formData.userName}
+            required
+            placeholder="Enter Username"
+            onChange={handleChange}
+          />
+
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="text"
+            name="email"
+            value={formData.email}
+            placeholder="Enter email address"
+            onChange={handleChange}
+            required
+          />
+
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          {user ? 'Update' : 'Create'}
+        </Button>
+      </Form>
+    </div>
   );
 }
 

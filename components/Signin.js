@@ -18,7 +18,7 @@ function Signin() {
       }}
     >
       <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
+      <p>Click the button below to login, or register a new account.</p>
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
       </Button>
