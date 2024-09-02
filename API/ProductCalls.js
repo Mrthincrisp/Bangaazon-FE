@@ -63,10 +63,24 @@ const deleteUserProduct = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const editUserProduct = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/products/${payload.productId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
   getProducts,
   getSingleProduct,
   getUserProducts,
   createProduct,
   deleteUserProduct,
+  editUserProduct,
 };

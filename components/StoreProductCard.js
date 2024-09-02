@@ -12,7 +12,7 @@ export default function StoreProductCard({ productObj, handleDelete }) {
           <Card.Img src={productObj.ImageUrl} />
           <Card.Text>{productObj.description}</Card.Text>
           <Card.Link as={Link} href={`/store/product/${productObj.productId}`}>Details</Card.Link>
-          <Button onClick={() => handleDelete(productObj)}>Remove Product</Button>
+          <Button style={{ margin: '5px 5px 5px 5px' }} onClick={() => handleDelete(productObj)}>Remove Product</Button>
         </Card.Body>
       </Card>
     </>

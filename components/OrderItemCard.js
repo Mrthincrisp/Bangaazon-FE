@@ -5,7 +5,6 @@ export default function OrderItemCard({ orderItemObj, deleteOrderItem }) {
   return (
     <>
       <div>
-        <p>{orderItemObj.product.name} </p>
         <button
           type="button"
           onClick={() => deleteOrderItem(orderItemObj.orderItemId)}
@@ -15,7 +14,7 @@ export default function OrderItemCard({ orderItemObj, deleteOrderItem }) {
         >
           &times;
         </button>
-        <p>{orderItemObj.product.price}</p>
+        <p>{orderItemObj.product.name}  {orderItemObj.product.price}</p>
 
       </div>
     </>

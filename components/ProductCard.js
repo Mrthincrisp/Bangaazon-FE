@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, NavLink } from 'react-bootstrap';
+import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
 import { addOrderItem, getUserOrderItems } from '../API/OrderCalls';
 
@@ -22,10 +23,10 @@ export default function ProductCard({ productObj, setOrderItem }) {
       <Card style={{ width: '18rem' }}>
         <Card.Body>
           <Card.Title>{productObj.name}</Card.Title>
-          <Card.Img src={productObj.ImageUrl} />
-          <Card.Text>{productObj.description}</Card.Text>
-          <Card.Link>Details</Card.Link>
-          <Button onClick={addToCart}>Add to Cart</Button>
+          <Card.Img src={productObj.imageUrl} alt={productObj.imageUrl} />
+          <Card.Text style={{ margin: '5px 0px 5px 0px' }}>{productObj.description}</Card.Text>
+          <NavLink as={Link} href={`/store/product/${productObj.productId}`}>Details</NavLink>
+          <Button style={{ margin: '5px 0px 5px 0px' }} onClick={addToCart}>Add to Cart</Button>
         </Card.Body>
       </Card>
     </>
@@ -35,7 +36,7 @@ export default function ProductCard({ productObj, setOrderItem }) {
 ProductCard.propTypes = {
   productObj: PropTypes.shape({
     name: PropTypes.string,
-    ImageUrl: PropTypes.string,
+    imageUrl: PropTypes.string,
     description: PropTypes.string,
     productId: PropTypes.number,
   }).isRequired,

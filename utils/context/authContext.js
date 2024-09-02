@@ -88,7 +88,6 @@ const registerWithEmailAndPassword = (email, password) => firebase.auth().create
     });
   })
   .catch((error) => {
-    console.error('Error during registration:', error.message);
     throw error;
   });
 

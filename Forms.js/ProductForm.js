@@ -3,8 +3,9 @@ import {
   Button, Col, Form, Row,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import getCategories from '../API/CategoryCalls';
-import { createProduct } from '../API/ProductCalls';
+import { createProduct, editUserProduct } from '../API/ProductCalls';
 import { useAuth } from '../utils/context/authContext';
 
 const initialState = {
@@ -16,21 +17,26 @@ const initialState = {
   categoryId: 0,
 };
 
-export default function NewProductForm() {
+export default function NewProductForm({ productObj }) {
   const { user } = useAuth();
-  const [formInput, setFormInput] = useState({ ...initialState, userId: user.id });
+  const [formInput, setFormInput] = useState({ ...initialState });
   const [categories, setCategories] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     getCategories().then(setCategories);
-  }, []);
+    if (productObj) setFormInput(productObj);
+  }, [productObj]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...formInput };
-    console.warn(payload);
-    createProduct(payload).then(() => router.push('/store'));
+    const payload = { ...formInput, userId: user.id };
+    if (productObj.productId) {
+      editUserProduct(payload).then(() => router.push(`/store/product/${payload.productId}`));
+    } else {
+      console.warn(payload);
+      createProduct(payload).then(() => router.push('/store'));
+    }
   };
 
   const handleChange = (e) => {
@@ -153,3 +159,19 @@ export default function NewProductForm() {
     </Form>
   );
 }
+
+NewProductForm.propTypes = {
+  productObj: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.number,
+    quantity: PropTypes.number,
+    categoryId: PropTypes.number,
+    imageUrl: PropTypes.string,
+    description: PropTypes.string,
+    productId: PropTypes.number,
+  }),
+};
+
+NewProductForm.defaultProps = {
+  productObj: initialState,
+};

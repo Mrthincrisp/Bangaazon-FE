@@ -30,13 +30,12 @@ export default function EditUserForm({ location }) {
     }
     updateSeller(payload).then(() => {
       updateUser(user.uid);
-      router.push('/');
+      router.push('/store');
     });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      {console.warn(user)}
       <Row className="mb-3">
         <Form.Group as={Col} md="6" controlId="validationUserName">
           <Form.Label>User Name</Form.Label>
