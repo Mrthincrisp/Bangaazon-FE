@@ -19,7 +19,10 @@ export default function Browse() {
   }, [user.id]);
 
   return (
-    <div>
+    <>
+      <div>
+        <Cart orderItems={orderItem} setOrderItem={setOrderItem} />
+      </div>
       <div className="product-list">
         {products.map((product) => (
           <ProductCard
@@ -29,7 +32,6 @@ export default function Browse() {
           />
         ))}
       </div>
-      <Cart orderItems={orderItem} setOrderItem={setOrderItem} />
-    </div>
+    </>
   );
 }

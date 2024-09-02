@@ -16,13 +16,11 @@ export default function Store() {
         const data = await getUserProducts(user.id);
         setProducts(data || []);
       } catch (error) {
-        console.error('Error fetching products:', error);
         setProducts([]);
       }
     }
   };
 
-  // get user products when user id changes
   useEffect(() => {
     getProducts();
   }, [user]);
@@ -35,12 +33,12 @@ export default function Store() {
 
   return (
     <div>
-      <Button type="button" onClick={() => router.push('store/product/new')}>Add Product</Button>
+      <Button style={{ margin: '5px 0px 5px 0px' }} type="button" onClick={() => router.push('store/product/new')}>Add Product</Button>
       <div>
         {products.length > 0 ? (
           products.map((product) => (
             <StoreProductCard
-              key={product.id}
+              key={product.productId}
               productObj={product}
               handleDelete={deleteProduct}
             />
