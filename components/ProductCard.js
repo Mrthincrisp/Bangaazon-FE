@@ -26,7 +26,7 @@ export default function ProductCard({ productObj, setOrderItem }) {
           <Card.Img src={productObj.imageUrl} alt={productObj.imageUrl} />
           <Card.Text style={{ margin: '5px 0px 5px 0px' }}>{productObj.description}</Card.Text>
           <NavLink as={Link} href={`/store/product/${productObj.productId}`}>Details</NavLink>
-          <Button style={{ margin: '5px 0px 5px 0px' }} onClick={addToCart}>Add to Cart</Button>
+          <Button style={{ margin: '5px 3px 5px 3px' }} onClick={addToCart}>Add to Cart</Button>
         </Card.Body>
       </Card>
     </>

@@ -34,7 +34,6 @@ export default function NewProductForm({ productObj }) {
     if (productObj.productId) {
       editUserProduct(payload).then(() => router.push(`/store/product/${payload.productId}`));
     } else {
-      console.warn(payload);
       createProduct(payload).then(() => router.push('/store'));
     }
   };

@@ -23,18 +23,21 @@ export default function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link passHref href="/">
-              <Nav.Link>Browse</Nav.Link>
+              <Nav.Link>Browse all Products</Nav.Link>
             </Link>
 
             {user.seller ? (
               <Link passHref href="/store">
-                <Nav.Link>Store</Nav.Link>
+                <Nav.Link>Your Store</Nav.Link>
               </Link>
             ) : (
               <Link passHref href="/createStore">
                 <Nav.Link>Create a Store</Nav.Link>
               </Link>
             )}
+            <Link passHref href="/orderHistory">
+              <Nav.Link>Order History</Nav.Link>
+            </Link>
 
             <Button variant="danger" onClick={signOut}>
               Sign Out

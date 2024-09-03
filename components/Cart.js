@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {
   Button, Offcanvas, OffcanvasBody, OffcanvasHeader,
 } from 'react-bootstrap';
-import { deleteOrderItem, getUserOrderItems } from '../API/OrderCalls';
+import {
+  createOrder, deleteOrderItem, deleteUserOrderItems, getUserOrderItems,
+} from '../API/OrderCalls';
 import { useAuth } from '../utils/context/authContext';
 import OrderItemCard from './OrderItemCard';
 
@@ -21,6 +23,23 @@ export default function Cart({ orderItems, setOrderItem }) {
     deleteOrderItem(id).then(() => {
       getUserOrderItems(user.id).then(setOrderItem);
     });
+  };
+
+  const checkout = () => {
+    if (window.confirm('Checkout?')) {
+      const payload = { buyerId: user.id };
+
+      createOrder(user.id, payload)
+        .then(() => {
+          alert('Order created successfully!');
+          // Optionally, clear the cart or update state
+          deleteUserOrderItems(user.id).then(setOrderItem([]));
+        })
+        .catch((error) => {
+          console.error('Error creating order:', error);
+          alert('Failed to create order.');
+        });
+    }
   };
 
   return (
@@ -44,6 +63,7 @@ export default function Cart({ orderItems, setOrderItem }) {
               deleteOrderItem={handleDelete}
             />
           ))}
+          <Button type="submit" onClick={checkout}>Checkout</Button>
         </OffcanvasBody>
       </Offcanvas>
     </>
