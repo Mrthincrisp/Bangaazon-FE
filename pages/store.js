@@ -34,7 +34,7 @@ export default function Store() {
   return (
     <div>
       <Button style={{ margin: '5px 0px 5px 0px' }} type="button" onClick={() => router.push('store/product/new')}>Add Product</Button>
-      <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
         {products.length > 0 ? (
           products.map((product) => (
             <StoreProductCard

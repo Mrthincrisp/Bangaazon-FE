@@ -31,9 +31,9 @@ export default function ProductDetails() {
         </Card.Body>
         <Card.Footer>
           {user.id === product.userId
-            ? <Button type="button" onClick={() => router.push(`/store/product/edit/${id}`)}>Edit</Button> : '' }
-          <Button variant="primary" onClick={() => router.push('/store')}>Back to Store</Button>
-          {user.seller ? <Button variant="primary" onClick={() => router.push('/')}>Back Browsing</Button> : '' }
+            ? <Button style={{ margin: '0px 3px 0px 3px' }} type="button" onClick={() => router.push(`/store/product/edit/${id}`)}>Edit</Button> : '' }
+          <Button style={{ margin: '0px 3px 0px 3px' }} variant="primary" onClick={() => router.push('/store')}>Back to Store</Button>
+          {user.seller ? <Button style={{ margin: '0px 3px 0px 3px' }} variant="primary" onClick={() => router.push('/')}>Back Browsing</Button> : '' }
         </Card.Footer>
       </Card>
     </Container>

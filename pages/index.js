@@ -23,7 +23,7 @@ export default function Browse() {
       <div>
         <Cart orderItems={orderItem} setOrderItem={setOrderItem} />
       </div>
-      <div className="product-list">
+      <div className="product-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
         {products.map((product) => (
           <ProductCard
             key={product.productId}
